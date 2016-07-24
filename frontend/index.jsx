@@ -3,10 +3,10 @@
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import HelloComponent from 'components/helloWord/index.jsx';
+import MainComponent from 'components/main/index.jsx';
 
 require('style/init.styl');
 
-var Hello = new HelloComponent(React);
+var Main = new MainComponent(React);
 
-ReactDOM.render(<Hello/>, document.querySelector('.container'));
+ReactDOM.render(<Main/>, document.querySelector('.container-fluid'));
