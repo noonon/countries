@@ -52,18 +52,23 @@ export default class main {
                 }.bind(this);
                 xhr.send();
 
-                document.body.addEventListener('click', this.closeOverlay);
+                document.body.addEventListener('click', this.closeOverlayAction);
             },
 
-            closeOverlay: function (event) {
+            closeOverlayAction: function (event) {
 
                 var className = (event.target).className;
 
                 className = className.search(/main__content-choose/);
 
                 if (className === -1 && this.state.overlay) {
-                    this.setState({overlay: false})
+                    this.closeOverlay()
+                    event.stopPropagation()
                 }
+            },
+
+            closeOverlay: function(){
+                this.setState({overlay: false})
             },
 
             componentWillUnmount: function () {
@@ -89,19 +94,16 @@ export default class main {
             },
 
             openOverlay: function () {
-
-                if (!this.state.overlay) {
-                    this.setState({overlay: true})
-                }
+                  this.setState({overlay: true})
             },
 
-            activeOverlay: function (flag) {
+            activeOverlay: function (flag, className) {
 
-                return (flag) ? 'main__content-choose_active' : '';
+                return (flag) ? className : '';
 
             },
 
-            setCity: function(key){
+            setCity: function (key) {
 
                 this.setState({
                     cityActive: key,
@@ -111,18 +113,30 @@ export default class main {
                 })
             },
 
-            setCountry: function(key){
+            setCountry: function (key) {
                 this.setState({
-                  countryPreActive: key
+                    countryPreActive: key
                 });
             },
-            activeCountry: function(active, preactive, key){
+            activeCountry: function (active, preactive, key) {
 
-                if(preactive !== undefined){
-                    return (preactive === key)? 'main__content-choose-countries-list-item-text_active': '';
-                }else{
-                    return (active === key)? 'main__content-choose-countries-list-item-text_active': '';
+                if (preactive !== undefined) {
+                    return (preactive === key) ? 'main__content-choose-countries-list-item-text_active' : '';
+                } else {
+                    return (active === key) ? 'main__content-choose-countries-list-item-text_active' : '';
                 }
+            },
+
+            titleAction: function (overlay, event) {
+
+                return (function(event){
+
+                    if (overlay === false || overlay === undefined) {
+                        this.openOverlay();
+                    }
+
+                    event.stopPropagation()
+                }).bind(this)
             },
 
             render() {
@@ -133,38 +147,42 @@ export default class main {
 
                 return <div className="main">
                     <div
-                        className="main__title"
-                        onClick={this.openOverlay}>{ this.getCityName(this.state.countryActive, this.state.cityActive) }</div>
+                        className={(['main__title', this.activeOverlay(this.state.overlay, 'main__title_active')]).join(' ')}
+                        onClick={this.titleAction.apply(this, [this.state.overlay])}>{ this.getCityName(this.state.countryActive, this.state.cityActive) }</div>
                     <div className="main__content">
-                        <div className={(["main__content-choose", this.activeOverlay(this.state.overlay)]).join(' ')}>
-                            <div className="main__content-choose-countries">
-                                <div className="main__content-choose-countries-list">
+                        <div
+                            className={(["main__content-choose row", this.activeOverlay(this.state.overlay, 'main__content-choose_active')]).join(' ')}>
+                            <div className="main__content-choose-countries col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div className="main__content-choose-countries-list row ">
                                     {
-                                        countries.map(function(item, key){
-                                            return <div className="main__content-choose-countries-list-item" key={key}>
-                                                <span onClick={function(){this.setCountry.apply(this, [key])}.bind(this)} className={(["main__content-choose-countries-list-item-text", this.activeCountry(this.state.countryActive, this.state.countryPreActive, key)]).join(' ')}>{item.name}</span>
+                                        countries.map(function (item, key) {
+                                            return <div className="main__content-choose-countries-list-item col-xs-12" key={key}>
+                                                <span
+                                                    onClick={function(){this.setCountry.apply(this, [key])}.bind(this)}
+                                                    className={(["main__content-choose-countries-list-item-text", this.activeCountry(this.state.countryActive, this.state.countryPreActive, key)]).join(' ')}>{item.name}</span>
                                             </div>
                                         }.bind(this))
                                     }
                                 </div>
                             </div>
-                            <div className="main__content-choose-cities">
-                                <div className="main__content-choose-cities-list">
+                            <div className="main__content-choose-cities col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div className="main__content-choose-cities-list row">
                                     {
-                                        cities.map(function(item, key){
-                                            return <div className="main__content-choose-cities-list-item" key={key}>
-                                                <span onClick={function(){this.setCity.apply(this, [key])}.bind(this)} className="main__content-choose-cities-list-item-text" >{item.name}</span>
+                                        cities.map(function (item, key) {
+                                            return <div className="main__content-choose-cities-list-item col-xs-12 " key={key}>
+                                                <span onClick={function(){this.setCity.apply(this, [key])}.bind(this)}
+                                                      className="main__content-choose-cities-list-item-text">{item.name}</span>
                                             </div>
                                         }.bind(this))
                                     }
                                 </div>
                             </div>
                         </div>
-                        <div className="main__content-places">
-                            <div className="main__content-places-list">
+                        <div className="main__content-places col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div className="main__content-places-list row ">
                                 {
                                     places.map(function (item, key) {
-                                        return <div className="main__content-places-list-item" key={key}>
+                                        return <div className="main__content-places-list-item col-lg-3 col-md-4 col-xs-12 col-sm-4" key={key}>
                                             <div className="main__content-places-list-item-name">{item.name}</div>
                                             <ul className="main__content-places-list-item-address">
                                                 {

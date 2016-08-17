@@ -63,7 +63,7 @@ module.exports = {
         modulesDirectories: [
             "node_modules"]
     },
-    plugins: [
+    /*plugins: [
         new webpack.optimize.UglifyJsPlugin({
             sourceMap: false,
             mangle: false,
@@ -71,5 +71,5 @@ module.exports = {
                 warnings: false
             }
         })
-    ]
+    ]*/
 };

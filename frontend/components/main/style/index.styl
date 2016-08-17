@@ -6,15 +6,20 @@
     font-size 24px
     color color_blue_1
     cursor pointer
+    display inline-block
     line-height: 50px;
     height 50px
     padding-left 40px
     white-space: nowrap;
     position relative
+    &_active
+      &:after
+        transform rotate(180deg)
     &:after
       content '';
       position absolute
       top: 15px;
+      transition transform .3s ease
       left: 10px;
       width: 21px;
       height: 23px;
@@ -31,7 +36,6 @@
       opacity 0
       z-index -1
       transition z-index 0s .3s, opacity .2s ease .1s, box-shadow .1s ease
-      @extends .row;
       border-radius var_border_radius
       border 2px color_grey_1 solid
       &_active
@@ -40,43 +44,38 @@
         z-index 1
         transition z-index 0s, opacity .3s ease, box-shadow .3s ease
       & > .main__content-choose-countries
-        @extends .col-lg-12, .col-md-12, .col-sm-12, .col-xs-12;
         & > .main__content-choose-countries-list
-          @extends .row;
           padding 20px 40px
           & > .main__content-choose-countries-list-item
-            @extends .col-lg-3, .col-md-4, .col-xs-12, .col-sm-6;
             font-size 18px
-            padding 16px 75px
+            width 150px
+            text-align left
+            padding 16px
             &>.main__content-choose-countries-list-item-text
               cursor pointer
               &_active
                 color: color_grey_2
       & > .main__content-choose-cities
         color color_blue_1
-        @extends .col-lg-12, .col-md-12, .col-sm-12, .col-xs-12;
         & > .main__content-choose-cities-list
-          @extends .row;
-          padding 20px 40px
+          padding 20px 40px;
           & > .main__content-choose-cities-list-item
-            @extends .col-lg-2, .col-md-3, .col-xs-12, .col-sm-4;
             font-size 18px
-            padding 16px 50px
+            text-align left
+            width 200px
+            padding 16px
             & > .main__content-choose-cities-list-item-text
               cursor pointer
     & > .main__content-places
-      @extends .col-lg-12, .col-md-12, .col-sm-12, .col-xs-12;
       & > .main__content-places-list
-        @extends .row;
         & > .main__content-places-list-item
-          @extends .col-lg-3, .col-md-4, .col-xs-12, .col-sm-6;
-          padding 16px 40px
+          padding 16px
           position relative
           &:after
             content '';
             position absolute
             top: 20px;
-            left: 15px;
+            left: -7px;
             width: 13px;
             height: 19px;
             background-image img_flag
@@ -108,5 +107,7 @@
                 margin-left 0
 
 @media only screen and (max-width: 48em)
-  .main > .main__content > .main__content-choose > .main__content-choose-cities > .main__content-choose-cities-list > .main__content-choose-cities-list-item
-    padding 16px 75px
+  .main > .main__content > .main__content-choose > .main__content-choose-cities > .main__content-choose-cities-list
+    padding 20px 40px
+    &> .main__content-choose-cities-list-item
+      padding 16px
