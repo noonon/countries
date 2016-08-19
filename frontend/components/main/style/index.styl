@@ -14,7 +14,7 @@
     position relative
     &_active
       &:after
-        transform rotate(180deg)
+        transform rotate(90deg)
     &:after
       content '';
       position absolute
@@ -24,6 +24,9 @@
       width: 21px;
       height: 23px;
       background-image img_arrow
+      background-size: contain;
+      background-repeat no-repeat
+      background-position center
   & > .main__content
     position relative
     & > .main__content-choose
@@ -79,6 +82,9 @@
             width: 13px;
             height: 19px;
             background-image img_flag
+            background-size: contain;
+            background-repeat no-repeat
+            background-position center
           & > .main__content-places-list-item-name
             font-family: ProximaNovaBold
             font-size 18px
@@ -95,6 +101,9 @@
               height: 15px;
               left: -3px;
               background-image img_clock
+              background-size: contain;
+              background-repeat no-repeat
+              background-position center
           & > .main__content-places-list-item-address
             display block
             font-size 16px

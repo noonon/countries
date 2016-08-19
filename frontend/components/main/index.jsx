@@ -156,7 +156,7 @@ export default class main {
                                 <div className="main__content-choose-countries-list row ">
                                     {
                                         countries.map(function (item, key) {
-                                            return <div className="main__content-choose-countries-list-item col-xs-12" key={key}>
+                                            return <div className="main__content-choose-countries-list-item" key={key}>
                                                 <span
                                                     onClick={function(){this.setCountry.apply(this, [key])}.bind(this)}
                                                     className={(["main__content-choose-countries-list-item-text", this.activeCountry(this.state.countryActive, this.state.countryPreActive, key)]).join(' ')}>{item.name}</span>
@@ -169,7 +169,7 @@ export default class main {
                                 <div className="main__content-choose-cities-list row">
                                     {
                                         cities.map(function (item, key) {
-                                            return <div className="main__content-choose-cities-list-item col-xs-12 " key={key}>
+                                            return <div className="main__content-choose-cities-list-item " key={key}>
                                                 <span onClick={function(){this.setCity.apply(this, [key])}.bind(this)}
                                                       className="main__content-choose-cities-list-item-text">{item.name}</span>
                                             </div>
